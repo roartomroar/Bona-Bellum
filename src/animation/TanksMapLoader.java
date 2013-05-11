@@ -1,12 +1,9 @@
 package animation;
 
 import java.awt.Point;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -14,32 +11,86 @@ import java.util.ArrayList;
  */
 public class TanksMapLoader {
 
-    public TanksMapLoader(String fName){
-        BufferedReader fileReader;
+    /* This function is gross, don't remind me */
+    public TanksMapLoader(String fName) {
+        Scanner fileReader;
         File file;
-        
-    
+        /* Describes whether you're in a specific section */
+        String currentSection = null;
+
+
         try {
-            
+
             file = new File(fName);
-            fileReader =  new BufferedReader(new FileReader(file));
-            
-        } catch (FileNotFoundException e){
-            System.err.printf("Could not load %s due to %s",
-                    fName, e.toString());
-            VisualMap = null;
-            ResourcesMap = null;
-            /* Exit from an error I don't feel like recovering from */
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.printf("Could not read %s due to %s",
+            fileReader = new Scanner(file);
+
+            if (!fileReader.nextLine().equals("[SIZE]")) {
+                Exception up = new Exception("invalid file format");
+                throw up;
+            }
+
+            int _Width = fileReader.nextInt();
+            int _Height = fileReader.nextInt();
+
+            /* Initialize the Maps using the data stored in the file */
+            VisualMap = new int[_Width][_Height];
+            ResourcesMap = new int[_Width][_Height];
+
+            /* Get the player start info */
+            while (fileReader.hasNext()) {
+                if (currentSection.equals("[PLAYER]")) {
+                    /* I can assume that the format is correct 
+                     * as we are writing everything. */
+                    if (fileReader.hasNextInt()) {
+                        int x = fileReader.nextInt(),
+                                y = fileReader.nextInt();
+                        PlayerPositions.add(new Point(x, y));
+                    } else if (fileReader.nextLine().equals("[PLAYER]")) {
+                        currentSection = "";
+                        continue;
+                    }
+                }
+
+                /* Once again, assuming that the file is formatted correctly
+                 * when loading the visual map*/
+                if (currentSection.equals("[VISUAL]")) {
+                    if (fileReader.hasNextInt()) {
+                        for (int[] x : VisualMap) {
+                            for (int y : x) {
+                                y = fileReader.nextInt();
+                            }
+                        }
+                    }
+                } else if (fileReader.nextLine().equals("[VISUAL]")) {
+                    currentSection = "";
+                    continue;
+                }
+                
+                /* Finally the resources map */
+                if (currentSection.equals("[RESOURCE]")) {
+                    if (fileReader.hasNextInt()) {
+                        for (int[] x : ResourcesMap) {
+                            for (int y : x) {
+                                y = fileReader.nextInt();
+                            }
+                        }
+                    } else if (fileReader.nextLine().equals("[RESOURCE]")) {
+                        currentSection = "";
+                        continue;
+                    }
+                }
+            }
+
+
+        } catch (Exception e) {
+            System.out.printf("ERROR: Could not load level %s due to %s",
                     fName, e.toString());
             VisualMap = null;
             ResourcesMap = null;
             /* Exit from an error I don't feel like recovering from */
             System.exit(1);
         }
-        
+
     }
 
     public int[][] getResourcesMap() {
@@ -49,14 +100,13 @@ public class TanksMapLoader {
     public int[][] getVisualMap() {
         return VisualMap;
     }
-    
+
+    public ArrayList<Point> getPlayerPositions() {
+        return PlayerPositions;
+    }
     /* Represents the two kinds of maps we are using */
     int[][] VisualMap;
     int[][] ResourcesMap;
-    
     /* Represents the player start positions*/
     ArrayList<Point> PlayerPositions;
-    
-
-
 }
