@@ -48,6 +48,7 @@ public class TanksMapLoader {
                 System.out.print("Reader has next value\n");                
                 System.out.print("Checking Section\n");
                 
+                
                 if (currentSection.equals("[PLAYER]")) {
                     /* I can assume that the format is correct 
                      * as we are writing everything. */
@@ -59,6 +60,7 @@ public class TanksMapLoader {
                         currentSection = "";
                         continue;
                     }
+                    System.out.print(PlayerPositions + "\n");
                 }
 
                 /* Once again, assuming that the file is formatted correctly
