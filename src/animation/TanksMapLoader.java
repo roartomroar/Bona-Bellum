@@ -38,6 +38,16 @@ public class TanksMapLoader {
 
             /* Get the player start info */
             while (fileReader.hasNext()) {
+                
+                if (currentSection == ""){
+                    String TempSec = "";
+                    while (TempSec != "[PLAYER]"  ||
+                            TempSec != "[VISUAL]" ||
+                            TempSec != "[RESOURCES]") {
+                        TempSec = fileReader.nextLine();
+                    }
+                }
+                
                 if (currentSection.equals("[PLAYER]")) {
                     /* I can assume that the format is correct 
                      * as we are writing everything. */
