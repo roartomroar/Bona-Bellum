@@ -17,7 +17,7 @@ public class TanksMapLoaderTest {
         TanksMapLoader loader = new TanksMapLoader("TempMap");
         int[][] visualMap = loader.getVisualMap();
         
-        assertFalse( visualMap == null);
+        assertTrue( visualMap != null);
         
         for (int[] x : visualMap)
             for ( int y: x)
@@ -26,7 +26,7 @@ public class TanksMapLoaderTest {
         visualMap = null;
         
         int[][] ResourceMap = loader.getResourcesMap();
-        assertFalse( ResourceMap == null);
+        assertTrue( ResourceMap != null);
 
         for (int[] x : ResourceMap)
             for ( int y: x)
