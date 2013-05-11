@@ -40,7 +40,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 
 	private Screen createInitialScreen()
 	{
-		return new BouncingBallScreen(this);
+		return new TankScreen(this);
 	}
 
 	private void initGame()

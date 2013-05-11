@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package animation;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,7 +17,7 @@ public class TanksMapLoaderTest {
         TanksMapLoader loader = new TanksMapLoader("TempMap");
         int[][] visualMap = loader.getVisualMap();
         
-        assertFalse( visualMap == null);
+        assertTrue( visualMap != null);
         
         for (int[] x : visualMap)
             for ( int y: x)
@@ -34,7 +26,7 @@ public class TanksMapLoaderTest {
         visualMap = null;
         
         int[][] ResourceMap = loader.getResourcesMap();
-        assertFalse( ResourceMap == null);
+        assertTrue( ResourceMap != null);
 
         for (int[] x : ResourceMap)
             for ( int y: x)

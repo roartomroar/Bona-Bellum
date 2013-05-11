@@ -16,37 +16,38 @@ public class TanksMapLoader {
         Scanner fileReader;
         File file;
         /* Describes whether you're in a specific section */
-        String currentSection = null;
+        String currentSection = "";
 
 
+        System.out.print("Reached Try Catch\n");
         try {
 
             file = new File(fName);
             fileReader = new Scanner(file);
 
+            System.out.print("Opened map\n");
+            
             if (!fileReader.nextLine().equals("[SIZE]")) {
                 Exception up = new Exception("invalid file format");
                 throw up;
             }
 
+            
             int _Width = fileReader.nextInt();
             int _Height = fileReader.nextInt();
+
+            System.out.print("Obtained the map size: (" + _Width+"," + _Height+ ")\n");
 
             /* Initialize the Maps using the data stored in the file */
             VisualMap = new int[_Width][_Height];
             ResourcesMap = new int[_Width][_Height];
 
+            System.out.print("Initialized maps\n");
             /* Get the player start info */
             while (fileReader.hasNext()) {
+                System.out.print("Reader has next value\n");                
+                System.out.print("Checking Section\n");
                 
-                if (currentSection == ""){
-                    String TempSec = "";
-                    while (TempSec != "[PLAYER]"  ||
-                            TempSec != "[VISUAL]" ||
-                            TempSec != "[RESOURCES]") {
-                        TempSec = fileReader.nextLine();
-                    }
-                }
                 
                 if (currentSection.equals("[PLAYER]")) {
                     /* I can assume that the format is correct 
@@ -59,6 +60,7 @@ public class TanksMapLoader {
                         currentSection = "";
                         continue;
                     }
+                    System.out.print(PlayerPositions + "\n");
                 }
 
                 /* Once again, assuming that the file is formatted correctly
