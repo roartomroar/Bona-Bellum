@@ -56,6 +56,8 @@ public class TankScreen implements Screen {
             }
        }
         
+        
+        /* This will be gone when we get the legitimate tank class done */
         for (int j = 0; j < players.size(); ++j) {
             int x = players.get(j).x * TileSize;
             int y = players.get(j).y * TileSize;
