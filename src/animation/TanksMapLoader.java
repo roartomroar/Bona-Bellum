@@ -2,6 +2,7 @@ package animation;
 
 import java.awt.Point;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,6 +18,7 @@ public class TanksMapLoader {
         File file;
         /* Describes whether you're in a specific section */
         String currentSection = "";
+        PlayerPositions = new ArrayList<Point>();
 
 
         System.out.print("Reached Try Catch\n");
@@ -28,7 +30,7 @@ public class TanksMapLoader {
             System.out.print("Opened map\n");
             
             if (!fileReader.nextLine().equals("[SIZE]")) {
-                Exception up = new Exception("invalid file format");
+                IOException up = new IOException("invalid file format");
                 throw up;
             }
 
@@ -43,7 +45,9 @@ public class TanksMapLoader {
             ResourcesMap = new int[_Width][_Height];
 
             System.out.print("Initialized maps\n");
-            /* Get the player start info */
+            
+            currentSection = "[PLAYER]";
+            
             while (fileReader.hasNext()) {
                 System.out.print("Reader has next value\n");                
                 System.out.print("Checking Section\n");
@@ -60,7 +64,7 @@ public class TanksMapLoader {
                         currentSection = "";
                         continue;
                     }
-                    System.out.print(PlayerPositions + "\n");
+                    System.out.print("Positiona are:" + PlayerPositions + "\n");
                 }
 
                 /* Once again, assuming that the file is formatted correctly
@@ -94,7 +98,7 @@ public class TanksMapLoader {
             }
 
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.printf("ERROR: Could not load level %s due to %s",
                     fName, e.toString());
             VisualMap = null;

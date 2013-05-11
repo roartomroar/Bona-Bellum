@@ -35,6 +35,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 			{
 				formWindowClosing(evt);
 			}
+                        
 		});
 	}
 
