@@ -21,13 +21,12 @@ public class TankScreen implements Screen {
         players = loader.getPlayerPositions();
         try {
             grassImage = ImageIO.read(new File("Grass.png"));
+            wallImage = ImageIO.read(new File("Wall.png"));
             tanks = ImageIO.read(new File("RedTank.png"));
         } catch (IOException ex) {
             System.err.println("Could not load images!\n");
             System.exit(-1);
         }
-
-
     }
 
     @Override
@@ -48,8 +47,8 @@ public class TankScreen implements Screen {
                     gr.drawImage(grassImage, x * TileSize, y * TileSize,
                             x * TileSize + TileSize, y * TileSize + TileSize,
                             0, 0, 50, 50, null);
-                } else if (VisualMap[x][y] == 1) {
-                    gr.drawImage(grassImage, x * TileSize, y * TileSize,
+                } else if (VisualMap[x][y] == 9) {
+                    gr.drawImage(wallImage, x * TileSize, y * TileSize,
                             x * TileSize + TileSize, y * TileSize + TileSize,
                             0, 0, 50, 50, null);
                 }
@@ -77,5 +76,7 @@ public class TankScreen implements Screen {
      */
     ArrayList<Point> players;
     BufferedImage grassImage;
+    BufferedImage wallImage;
     BufferedImage tanks;
+    
 }
