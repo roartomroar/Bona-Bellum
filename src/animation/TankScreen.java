@@ -2,7 +2,8 @@ package animation;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import javax.rmi.CORBA.Tie;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public class TankScreen implements Screen {
     
@@ -15,6 +16,8 @@ public class TankScreen implements Screen {
         
         VisualMap = loader.getVisualMap();
         ResourcesMap = loader.getResourcesMap();
+        players = loader.getPlayerPositions();
+        
         
     }
 
@@ -32,13 +35,24 @@ public class TankScreen implements Screen {
     public void render(Graphics2D gr) {
         for (int x = 0; x < VisualMap.length; ++x) {
             for (int y = 0; y < VisualMap[x].length; ++y){
-                if (VisualMap[x][y] == 0)
+                if (VisualMap[x][y] == 0) {
                     gr.setColor(Color.green);
-                else gr.setColor(Color.gray);
+                    gr.setBackground(Color.green);
+                } else {
+                    gr.setColor(Color.gray);
+                    gr.setBackground(Color.gray);
+                }
                 gr.drawRect(TileSize * x, TileSize * y,
                         TileSize, TileSize);
             }
         }
+        
+        gr.setBackground(Color.blue);
+        for (Point p: players) {
+            gr.drawOval( TileSize * p.x, TileSize * p.y,
+                    TileSize, TileSize);
+        }
+        
     }
 
     
@@ -50,4 +64,5 @@ public class TankScreen implements Screen {
     /*
      * No tank class as of yet.
      */
+    ArrayList<Point> players;
 }
