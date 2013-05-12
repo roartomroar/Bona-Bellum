@@ -19,6 +19,89 @@
    sodipodi:docname="Wall.svg">
   <defs
      id="defs4">
+    <marker
+       style="overflow:visible"
+       inkscape:stockid="InfiniteLineStart"
+       id="InfiniteLineStart"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <g
+         id="g7267"
+         style="fill:#000000"
+         transform="translate(-13,0)">
+        <circle
+           d="M 3.8,0 C 3.8,0.44182781 3.4418278,0.80000001 3,0.80000001 2.5581722,0.80000001 2.2,0.44182781 2.2,0 c 0,-0.44182781 0.3581722,-0.80000001 0.8,-0.80000001 0.4418278,0 0.8,0.3581722 0.8,0.80000001 z"
+           id="circle7269"
+           r="0.8"
+           cy="0"
+           cx="3" />
+        <circle
+           d="M 7.3,0 C 7.3,0.44182781 6.9418278,0.80000001 6.5,0.80000001 6.0581722,0.80000001 5.7,0.44182781 5.7,0 c 0,-0.44182781 0.3581722,-0.80000001 0.8,-0.80000001 0.4418278,0 0.8,0.3581722 0.8,0.80000001 z"
+           id="circle7271"
+           r="0.8"
+           cy="0"
+           cx="6.5" />
+        <circle
+           d="M 10.8,0 C 10.8,0.44182781 10.441828,0.80000001 10,0.80000001 9.5581722,0.80000001 9.2,0.44182781 9.2,0 c 0,-0.44182781 0.3581722,-0.80000001 0.8,-0.80000001 0.441828,0 0.8,0.3581722 0.8,0.80000001 z"
+           id="circle7273"
+           r="0.8"
+           cy="0"
+           cx="10" />
+      </g>
+    </marker>
+    <marker
+       inkscape:stockid="RazorWire"
+       id="RazorWire"
+       refX="0"
+       refY="0"
+       orient="auto"
+       style="overflow:visible">
+      <path
+         id="path7255"
+         transform="scale(0.8,0.8)"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.1pt"
+         d="M 0.022727273,-0.74009011 L 0.022727273,0.69740989 L -7.7585227,3.0099099 L 10.678977,3.0099099 L 3.4914773,0.69740989 L 3.4914773,-0.74009011 L 10.741477,-2.8963401 L -7.7272727,-2.8963401 L 0.022727273,-0.74009011 z " />
+    </marker>
+    <marker
+       inkscape:stockid="SquareL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="SquareL"
+       style="overflow:visible">
+      <path
+         id="path7093"
+         d="M -5.0,-5.0 L -5.0,5.0 L 5.0,5.0 L 5.0,-5.0 L -5.0,-5.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path7026"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path7023"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
     <linearGradient
        id="linearGradient5271"
        osb:paint="solid">
@@ -86,17 +169,6 @@
          offset="1"
          id="stop5227" />
     </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5223"
-       id="radialGradient5229"
-       cx="26.160698"
-       cy="25.357157"
-       fx="26.160698"
-       fy="25.357157"
-       r="25.5"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.7258093,0.06205394,-0.0371105,1.6301333,-44.20736,-17.601779)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -106,15 +178,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.2"
-     inkscape:cx="26.118853"
-     inkscape:cy="33.412278"
+     inkscape:cx="29.452907"
+     inkscape:cy="24.760638"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1600"
-     inkscape:window-height="829"
+     inkscape:window-height="845"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -124,7 +196,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -133,16 +205,21 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-1002.3622)">
-    <rect
-       style="fill:url(#radialGradient5229);fill-opacity:1;stroke:#000000;stroke-opacity:1"
-       id="rect2985"
-       width="50"
-       height="50"
-       x="0.44642857"
-       y="0.53571415"
-       transform="translate(0,1002.3622)"
-       inkscape:export-filename="/home/thomas/NetBeansProjects/Bona-Bellum/Wall.png"
-       inkscape:export-xdpi="88.235291"
-       inkscape:export-ydpi="88.235291" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0f0f;fill-opacity:1;stroke:#000000;stroke-width:0.58451498000000002;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:0.72350230000000004;stroke-dasharray:0.05845150000000000, 0.05845150000000000;stroke-dashoffset:0;marker-mid:none;marker-end:none;"
+       id="path7017"
+       sodipodi:sides="8"
+       sodipodi:cx="9.9107141"
+       sodipodi:cy="9.7321424"
+       sodipodi:r1="18.52372"
+       sodipodi:r2="17.113686"
+       sodipodi:arg1="0.40109434"
+       sodipodi:arg2="0.79379342"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 26.964286,16.964285 16.855513,26.904736 2.6785712,26.785714 -7.2618793,16.676941 -7.1428574,2.4999995 2.9659154,-7.440451 17.142857,-7.3214291 27.083308,2.7873437 z"
+       transform="matrix(1.4314465,0,0,1.4314465,10.813342,1013.4312)" />
   </g>
 </svg>

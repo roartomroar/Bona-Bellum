@@ -2,12 +2,12 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="50"
@@ -21,6 +21,14 @@
    inkscape:export-ydpi="90">
   <defs
      id="defs3818">
+    <linearGradient
+       id="linearGradient5798"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#4d9335;stop-opacity:1;"
+         offset="0"
+         id="stop5800" />
+    </linearGradient>
     <linearGradient
        id="linearGradient4334">
       <stop
@@ -36,17 +44,6 @@
          offset="1"
          id="stop4338" />
     </linearGradient>
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4334"
-       id="radialGradient4340"
-       cx="25.044643"
-       cy="25.17857"
-       fx="25.044643"
-       fy="25.17857"
-       r="25.633928"
-       gradientTransform="matrix(1,0,0,0.99825843,0,0.04385036)"
-       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -55,16 +52,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="12.896023"
-     inkscape:cx="25.044643"
-     inkscape:cy="24.82143"
+     inkscape:zoom="9.1188653"
+     inkscape:cx="-3.3066655"
+     inkscape:cy="20.552678"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1600"
-     inkscape:window-height="829"
+     inkscape:window-height="845"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata3821">
@@ -74,7 +71,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -84,7 +81,7 @@
      id="layer1"
      transform="translate(0,-1002.3622)">
     <rect
-       style="fill:#5fb941;stroke:url(#radialGradient4340);fill-opacity:1;stroke-opacity:1;opacity:1"
+       style="fill:#60b941;stroke:#92d17d;fill-opacity:1;stroke-opacity:1;opacity:1"
        id="rect3824"
        width="50.267857"
        height="50.17857"
