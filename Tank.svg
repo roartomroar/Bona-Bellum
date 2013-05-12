@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="Tank.svg"
+   inkscape:export-filename="/home/thomas/NetBeansProjects/Bona-Bellum/WhiteTank.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
@@ -48,16 +51,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="151.21391"
-     inkscape:cy="-39.401051"
+     inkscape:zoom="6.72"
+     inkscape:cx="13.580034"
+     inkscape:cy="19.882557"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1600"
-     inkscape:window-height="829"
+     inkscape:window-height="845"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="27"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -77,7 +80,7 @@
      id="layer1"
      transform="translate(0,-1002.3622)">
     <rect
-       style="fill:#800000;stroke:url(#radialGradient3783);stroke-width:1.04591501000000009"
+       style="fill:#ffffff;stroke:#000000;stroke-width:1.04591501000000009;fill-opacity:1;stroke-opacity:0.44444444999999999"
        id="rect2995"
        width="38.954082"
        height="38.954086"
@@ -85,7 +88,7 @@
        y="1007.8851"
        ry="3.7980235" />
     <rect
-       style="fill:#000000;stroke:#ffd5d5;stroke-width:1.11648417000000011"
+       style="fill:#000000;stroke:#000000;stroke-width:1.11648417000000011;stroke-opacity:0.44313726"
        id="rect3767"
        width="28.883516"
        height="28.883516"
@@ -93,13 +96,12 @@
        y="1012.9205"
        ry="12.472428" />
     <rect
-       style="fill:#800000;stroke:#ffd5d5"
+       style="fill:#ffffff;stroke:#000000;stroke-width:1.02542614999999993;fill-opacity:1;stroke-opacity:0.44313725999999998"
        id="rect3795"
-       width="23.486052"
-       height="8.7125635"
-       x="25.88516"
-       y="21.084383"
-       transform="translate(0,1002.3622)"
-       ry="3.166678" />
+       width="23.974575"
+       height="8.9745741"
+       x="25.512714"
+       y="1022.8749"
+       ry="3.2619085" />
   </g>
 </svg>
