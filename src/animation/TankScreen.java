@@ -47,6 +47,7 @@ public class TankScreen implements Screen {
                     gr.drawImage(grassImage, x * TileSize, y * TileSize,
                             x * TileSize + TileSize, y * TileSize + TileSize,
                             0, 0, 50, 50, null);
+		    gr.drawImage
                 } else if (VisualMap[x][y] == 9) {
                     gr.drawImage(wallImage, x * TileSize, y * TileSize,
                             x * TileSize + TileSize, y * TileSize + TileSize,
