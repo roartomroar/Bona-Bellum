@@ -9,6 +9,7 @@ public class TankScreen implements Screen {
         this.theFrame = theFrame;
         
         map = new TanksMap(TanksMap.Level.EASY);
+        tanks = map.getTanks();
     }
 
     @Override
