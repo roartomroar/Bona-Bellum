@@ -35,7 +35,8 @@ public class TanksMap
     
     public TanksMap(Level level)
     {
-	
+	if (Grass == null)
+	    
 	
 	String fName = "";
 	
@@ -95,4 +96,6 @@ public class TanksMap
 	    
 	}
     }
+    
+    
 }
