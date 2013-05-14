@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ public class AnimatedFrame extends JFrame
 		targetFPS = 60;  // How many frames are we going to generate per second?
 		nanosPerUpdate = 1000000000 / targetFPS;
         
+                eventQueue = new LinkedList<InputEvent>();
 
 		addWindowListener(new WindowAdapter()
 		{
@@ -41,6 +43,9 @@ public class AnimatedFrame extends JFrame
 			}
                         
 		});
+                
+                addKeyListener(this);
+                addMouseListener(this);
 	}
 
 	private Screen createInitialScreen()
