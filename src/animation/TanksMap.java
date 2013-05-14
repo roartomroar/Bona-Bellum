@@ -103,8 +103,11 @@ public class TanksMap {
                     case 3:
                         map[x][y] = Ground.WATER;
                         break;
-		    default:
-			map[x][y] = Ground.DIRT;
+                    case 4:
+                        map[x][y] = Ground.WALL;
+                        break;
+                    default:
+                        map[x][y] = Ground.DIRT;
                     }
                 }
             }
