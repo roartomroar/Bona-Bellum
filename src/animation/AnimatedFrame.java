@@ -1,23 +1,26 @@
 package animation;
 
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
+import java.util.Queue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-public class AnimatedFrame extends JFrame implements Runnable
+public class AnimatedFrame extends JFrame
+    implements Runnable, MouseListener, KeyListener
 {
 	public AnimatedFrame()
 	{
@@ -27,6 +30,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 		setIgnoreRepaint(true);
 		targetFPS = 60;  // How many frames are we going to generate per second?
 		nanosPerUpdate = 1000000000 / targetFPS;
+        
 
 		addWindowListener(new WindowAdapter()
 		{
@@ -50,7 +54,6 @@ public class AnimatedFrame extends JFrame implements Runnable
 
 		if (initFSMode())
 		{
-			createHideCursor();
 
 			gameThread = new Thread(this);
 			gameThread.start();
@@ -105,30 +108,30 @@ public class AnimatedFrame extends JFrame implements Runnable
 		return true;
 	}
 
-	private void createHideCursor()
-	{
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-
-		// Get the smallest valid cursor size
-		Dimension dim = toolkit.getBestCursorSize(1, 1);
-
-		// Create a new image of that size with an alpha channel
-		BufferedImage cursorImg = new BufferedImage(dim.width, dim.height, BufferedImage.TYPE_INT_ARGB);
-
-		// Get a Graphics2D object to draw to the image
-		Graphics2D g2d = cursorImg.createGraphics();
-
-		// Set the background 'color' with 0 alpha and clear the image
-		g2d.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
-		g2d.clearRect(0, 0, dim.width, dim.height);
-
-		// Dispose the Graphics2D object
-		g2d.dispose();
-
-		// Now create the cursor using that transparent image
-		hiddenCursor = toolkit.createCustomCursor(cursorImg, new Point(0, 0), "hiddenCursor");
-		setCursor(hiddenCursor);
-	}
+//	private void createHideCursor()
+//	{
+//		Toolkit toolkit = Toolkit.getDefaultToolkit();
+//
+//		// Get the smallest valid cursor size
+//		Dimension dim = toolkit.getBestCursorSize(1, 1);
+//
+//		// Create a new image of that size with an alpha channel
+//		BufferedImage cursorImg = new BufferedImage(dim.width, dim.height, BufferedImage.TYPE_INT_ARGB);
+//
+//		// Get a Graphics2D object to draw to the image
+//		Graphics2D g2d = cursorImg.createGraphics();
+//
+//		// Set the background 'color' with 0 alpha and clear the image
+//		g2d.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+//		g2d.clearRect(0, 0, dim.width, dim.height);
+//
+//		// Dispose the Graphics2D object
+//		g2d.dispose();
+//
+//		// Now create the cursor using that transparent image
+//		hiddenCursor = toolkit.createCustomCursor(cursorImg, new Point(0, 0), "hiddenCursor");
+//		setCursor(hiddenCursor);
+//	}
 
 	@Override
 	public void run()
@@ -211,8 +214,55 @@ public class AnimatedFrame extends JFrame implements Runnable
 		AnimatedFrame frame = new AnimatedFrame();
 		frame.initGame();
 	}
+    
+    public InputEvent getNextEvent () {
+        return eventQueue.poll();
+    }
 
-	// Graphics mode info
+
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        eventQueue.offer(me);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        /* Do Nothing */
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        /* Do Nothing */        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        /* Do Nothing */
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        /* Do Nothing */
+    }
+
+
+        @Override
+    public void keyTyped(KeyEvent ke) {
+            eventQueue.offer(ke);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        eventQueue.offer(ke);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        eventQueue.offer(ke);
+    }
+
+    // Graphics mode info
 	private GraphicsDevice dev;
 	private DisplayMode mode;
 	private BufferStrategy bstrat;
@@ -230,4 +280,8 @@ public class AnimatedFrame extends JFrame implements Runnable
 	private volatile boolean running;
 	private Thread gameThread;
 	private Screen currentScreen;
+    //For handing events
+    private volatile Queue<InputEvent> eventQueue;
+
+
 }
