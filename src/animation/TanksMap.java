@@ -39,6 +39,7 @@ public class TanksMap {
             Wall = ImageIO.read(new File("Wall.png"));
             Water = ImageIO.read(new File("Water.png"));
             Dirt = ImageIO.read(new File("Dirt.png"));
+            Sand = ImageIO.read(new File("Sand.png"));
         } catch (IOException ex) {
             System.err.println("Could not load images!\n");
             System.exit(-1);
@@ -105,7 +106,7 @@ public class TanksMap {
                         break;
                     case 4:
                         map[x][y] = Ground.WALL;
-                        break;
+                        break;  
                     default:
                         map[x][y] = Ground.DIRT;
                     }
@@ -133,12 +134,20 @@ public class TanksMap {
                 switch (map[x][y]) {
                 case GRASS:
                     gr.drawImage(Grass, x * TileSize, y * TileSize,
-                            x * TileSize + TileSize, y * TileSize + TileSize, 0, 0, 50, 50, null);
+                            x * TileSize + TileSize, y * TileSize + TileSize,
+                            0, 0, 50, 50, null);
                     break;
                 case DIRT:
                     gr.drawImage(Dirt, x * TileSize, y * TileSize,
-                            x * TileSize + TileSize, y * TileSize + TileSize, 0, 0, 50, 50, null);
+                            x * TileSize + TileSize, y * TileSize + TileSize,
+                            0, 0, 50, 50, null);
                     break;
+                case SAND:
+                    gr.drawImage(Sand, x * TileSize, y * TileSize,
+                            x * TileSize + TileSize, y * TileSize + TileSize,
+                            0, 0, 50, 50, null);
+                    break;
+                    
                 case WATER:
                     gr.drawImage(Water, x * TileSize, y * TileSize,
                             x * TileSize + TileSize, y * TileSize + TileSize,
@@ -146,7 +155,8 @@ public class TanksMap {
                     break;
                 case WALL:
                     gr.drawImage(Wall, x * TileSize, y * TileSize,
-                            x * TileSize + TileSize, y * TileSize + TileSize, 0, 0, 50, 50, null);
+                            x * TileSize + TileSize, y * TileSize + TileSize,
+                            0, 0, 50, 50, null);
                     break;
                 }
             }
