@@ -85,8 +85,8 @@ public class TanksMap {
              * where I need to be*/
             while (!fileReader.nextLine().equals("[VISUAL]"));
 
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
+            for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
                     if (!fileReader.hasNextInt())
                         break;
                     int spot = fileReader.nextInt();
@@ -103,6 +103,8 @@ public class TanksMap {
                     case 3:
                         map[x][y] = Ground.WATER;
                         break;
+		    default:
+			map[x][y] = Ground.DIRT;
                     }
                 }
             }
