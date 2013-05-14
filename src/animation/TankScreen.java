@@ -1,6 +1,9 @@
 package animation;
 
 import java.awt.Graphics2D;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class TankScreen implements Screen {
@@ -14,7 +17,16 @@ public class TankScreen implements Screen {
 
     @Override
     public void update() {
-        /* TODO: Implement the updating */
+        InputEvent ev = theFrame.getNextEvent();
+        
+        if (ev == null)
+            return;
+        
+        if (ev instanceof MouseEvent) {
+            /* Do what mouses do */
+        } else if ( ev instanceof KeyEvent) {
+            /* Do what keys do */
+        }
     }
 
     @Override
