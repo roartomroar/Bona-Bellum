@@ -1,5 +1,6 @@
 package animation;
 
+import com.sun.corba.se.impl.ior.FreezableList;
 import java.awt.Cursor;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
@@ -16,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -31,9 +33,8 @@ public class AnimatedFrame extends JFrame
 		setIgnoreRepaint(true);
 		targetFPS = 60;  // How many frames are we going to generate per second?
 		nanosPerUpdate = 1000000000 / targetFPS;
-        eventQueue = new LinkedList<InputEvent>();
+        eventQueue = new ConcurrentLinkedQueue<Event>();
         
-                eventQueue = new LinkedList<InputEvent>();
 
 		addWindowListener(new WindowAdapter()
 		{
@@ -221,7 +222,7 @@ public class AnimatedFrame extends JFrame
 		frame.initGame();
 	}
     
-    public InputEvent getNextEvent () {
+    public Event getNextEvent () {
         return eventQueue.poll();
     }
 
@@ -229,7 +230,10 @@ public class AnimatedFrame extends JFrame
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        eventQueue.offer(me);
+        if (me.getButton() == MouseEvent.BUTTON1 )
+            eventQueue.offer(Event.LeftButtonClick);
+        else if (me.getButton() == MouseEvent.BUTTON2)
+            eventQueue.offer(Event.RightButtonClick);
     }
 
     @Override
@@ -255,17 +259,22 @@ public class AnimatedFrame extends JFrame
 
         @Override
     public void keyTyped(KeyEvent ke) {
-            eventQueue.offer(ke);
+            /* Do Nothing */
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        eventQueue.offer(ke);
+        /* Do Nothing */
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        eventQueue.offer(ke);
+        /* Do Nothing yet */
+    }
+    
+    public enum Event {
+        LeftButtonClick,
+        RightButtonClick,
     }
 
     // Graphics mode info
@@ -287,7 +296,7 @@ public class AnimatedFrame extends JFrame
 	private Thread gameThread;
 	private Screen currentScreen;
     //For handing events
-    private volatile Queue<InputEvent> eventQueue;
+    private volatile Queue<Event> eventQueue;
 
 
 }

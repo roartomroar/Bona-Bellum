@@ -18,15 +18,20 @@ public class TankScreen implements Screen {
 
     @Override
     public void update() {
-        InputEvent ev = theFrame.getNextEvent();
-        
-        if (ev == null)
+        AnimatedFrame.Event event = theFrame.getNextEvent();
+
+        if (event == null)
             return;
-        
-        if (ev instanceof MouseEvent) {
-            /* Do what mouses do */
-        } else if ( ev instanceof KeyEvent) {
-            /* Do what keys do */
+         
+        switch (event) {
+        case LeftButtonClick:
+            System.out.println("Hello");
+            break;
+        case RightButtonClick:
+            System.out.println("Hello");
+            break;
+        default:
+                /* Do nothing */
         }
     }
 
