@@ -2,8 +2,6 @@ package animation;
 
 import java.awt.Graphics2D;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class TankScreen implements Screen {
@@ -18,21 +16,20 @@ public class TankScreen implements Screen {
 
     @Override
     public void update() {
-        AnimatedFrame.Event event = theFrame.getNextEvent();
+        InputEvent event = theFrame.getNextEvent();
 
         if (event == null)
             return;
-         
-        switch (event) {
-        case LeftButtonClick:
-            System.out.println("Hello");
+        
+        switch (event.getID()) {
+        case InputEvent.BUTTON1_DOWN_MASK:
             break;
-        case RightButtonClick:
-            System.out.println("Hello");
+        case InputEvent.BUTTON2_DOWN_MASK:
             break;
-        default:
-                /* Do nothing */
+        case InputEvent.BUTTON3_DOWN_MASK:
+            break;
         }
+         
     }
 
     @Override
@@ -43,6 +40,8 @@ public class TankScreen implements Screen {
     @Override
     public void render(Graphics2D gr) {
         map.DrawMap(gr);
+        for (Tank t : tanks)
+            t.Draw(gr);
     }
     
     private AnimatedFrame theFrame;
