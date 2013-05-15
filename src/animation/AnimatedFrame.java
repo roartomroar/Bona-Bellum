@@ -33,6 +33,7 @@ public class AnimatedFrame extends JFrame
 		nanosPerUpdate = 1000000000 / targetFPS;
         eventQueue = new LinkedList<InputEvent>();
         
+                eventQueue = new LinkedList<InputEvent>();
 
 		addWindowListener(new WindowAdapter()
 		{
@@ -43,6 +44,9 @@ public class AnimatedFrame extends JFrame
 			}
                         
 		});
+                
+                addKeyListener(this);
+                addMouseListener(this);
 	}
 
 	private Screen createInitialScreen()

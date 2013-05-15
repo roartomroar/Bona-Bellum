@@ -24,13 +24,9 @@ public class TankScreen implements Screen {
             return;
         
         if (ev instanceof MouseEvent) {
-            /* TODO: Tell the tank to either attack or
-             * move to the location */
-            System.out.println("Pressed the mouse");
+            /* Do what mouses do */
         } else if ( ev instanceof KeyEvent) {
-            /*
-             * TODO: Implement junk like pausing, etc.
-             */
+            /* Do what keys do */
         }
     }
 
