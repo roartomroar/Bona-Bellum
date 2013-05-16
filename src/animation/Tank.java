@@ -45,12 +45,12 @@ public class Tank {
         
         if (Direction / 90 == 0 || Direction / 90 == 2) {
             
-        if (CheckCollision(x + 1, y)) {
-            if (x != xLoc)
-                    ++x;
-            } else {
-                Turn (5);
-                fuel -= 1;
+	    if (CheckCollision(x + 1, y)) {
+		if (x != xLoc)
+			++x;
+		} else {
+		    Turn (5);
+		    fuel -= 1;
             }
         } else if (Direction / 90 == 1 || Direction / 90 == 3) {
             /* At a vertical slope */
