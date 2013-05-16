@@ -1,6 +1,5 @@
 package animation;
 
-import com.sun.corba.se.impl.ior.FreezableList;
 import java.awt.Cursor;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
@@ -15,7 +14,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JFrame;
@@ -33,7 +31,7 @@ public class AnimatedFrame extends JFrame
 		setIgnoreRepaint(true);
 		targetFPS = 60;  // How many frames are we going to generate per second?
 		nanosPerUpdate = 1000000000 / targetFPS;
-        eventQueue = new ConcurrentLinkedQueue<Event>();
+        eventQueue = new ConcurrentLinkedQueue<InputEvent>();
         
 
 		addWindowListener(new WindowAdapter()
@@ -222,7 +220,7 @@ public class AnimatedFrame extends JFrame
 		frame.initGame();
 	}
     
-    public Event getNextEvent () {
+    public InputEvent getNextEvent () {
         return eventQueue.poll();
     }
 
@@ -230,10 +228,7 @@ public class AnimatedFrame extends JFrame
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        if (me.getButton() == MouseEvent.BUTTON1 )
-            eventQueue.offer(Event.LeftButtonClick);
-        else if (me.getButton() == MouseEvent.BUTTON2)
-            eventQueue.offer(Event.RightButtonClick);
+        eventQueue.offer(me);
     }
 
     @Override
@@ -272,10 +267,6 @@ public class AnimatedFrame extends JFrame
         /* Do Nothing yet */
     }
     
-    public enum Event {
-        LeftButtonClick,
-        RightButtonClick,
-    }
 
     // Graphics mode info
 	private GraphicsDevice dev;
@@ -296,7 +287,7 @@ public class AnimatedFrame extends JFrame
 	private Thread gameThread;
 	private Screen currentScreen;
     //For handing events
-    private volatile Queue<Event> eventQueue;
+    private volatile Queue<InputEvent> eventQueue;
 
 
 }

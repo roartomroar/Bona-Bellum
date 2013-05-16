@@ -18,21 +18,26 @@ public class TankScreen implements Screen {
 
     @Override
     public void update() {
-        AnimatedFrame.Event event = theFrame.getNextEvent();
+        InputEvent event = theFrame.getNextEvent();
 
+        
         if (event == null)
             return;
-         
-        switch (event) {
-        case LeftButtonClick:
-            System.out.println("Hello");
-            break;
-        case RightButtonClick:
-            System.out.println("Hello");
-            break;
-        default:
-                /* Do nothing */
+
+        
+        if (event instanceof MouseEvent) {
+            MouseEvent mEvent = (MouseEvent) event;
+            System.out.println("Got an event!");
+            if (mEvent.getButton() == MouseEvent.BUTTON1)
+                CurrentTank.Move(mEvent.getX(), mEvent.getY());
+            else if (mEvent.getButton() == MouseEvent.BUTTON2)
+                return;
+            else if (mEvent.getButton() == MouseEvent.BUTTON3)
+                return;
+        } else if (event instanceof KeyEvent) {
+            /* Do nothing as of yet */
         }
+         
     }
 
     @Override
@@ -43,6 +48,8 @@ public class TankScreen implements Screen {
     @Override
     public void render(Graphics2D gr) {
         map.DrawMap(gr);
+        for (Tank t : tanks)
+            t.Draw(gr);
     }
     
     private AnimatedFrame theFrame;
