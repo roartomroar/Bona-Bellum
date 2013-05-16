@@ -50,6 +50,7 @@ public class Tank {
                     ++x;
             } else {
                 Turn (5);
+                fuel -= 1;
             }
         } else if (Direction / 90 == 1 || Direction / 90 == 3) {
             /* At a vertical slope */

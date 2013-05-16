@@ -2,6 +2,8 @@ package animation;
 
 import java.awt.Graphics2D;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class TankScreen implements Screen {
@@ -18,16 +20,22 @@ public class TankScreen implements Screen {
     public void update() {
         InputEvent event = theFrame.getNextEvent();
 
+        
         if (event == null)
             return;
+
         
-        switch (event.getID()) {
-        case InputEvent.BUTTON1_DOWN_MASK:
-            break;
-        case InputEvent.BUTTON2_DOWN_MASK:
-            break;
-        case InputEvent.BUTTON3_DOWN_MASK:
-            break;
+        if (event instanceof MouseEvent) {
+            MouseEvent mEvent = (MouseEvent) event;
+            System.out.println("Got an event!");
+            if (mEvent.getButton() == MouseEvent.BUTTON1)
+                CurrentTank.Move(mEvent.getX(), mEvent.getY());
+            else if (mEvent.getButton() == MouseEvent.BUTTON2)
+                return;
+            else if (mEvent.getButton() == MouseEvent.BUTTON3)
+                return;
+        } else if (event instanceof KeyEvent) {
+            /* Do nothing as of yet */
         }
          
     }

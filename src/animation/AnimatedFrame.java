@@ -1,6 +1,5 @@
 package animation;
 
-import com.sun.corba.se.impl.ior.FreezableList;
 import java.awt.Cursor;
 import java.awt.DisplayMode;
 import java.awt.Graphics2D;
@@ -15,7 +14,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.JFrame;
