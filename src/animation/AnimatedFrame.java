@@ -7,8 +7,10 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -20,98 +22,113 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
-public class AnimatedFrame extends JFrame
-    implements Runnable, MouseListener, KeyListener
+public class AnimatedFrame extends JFrame implements Runnable
 {
-	public AnimatedFrame()
+
+    public AnimatedFrame()
+    {
+	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	setUndecorated(true);
+	setResizable(false);
+	setIgnoreRepaint(true);
+	targetFPS = 60;  // How many frames are we going to generate per second?
+	nanosPerUpdate = 1000000000 / targetFPS;
+	events = new ConcurrentLinkedQueue<Event>();
+	
+	addWindowListener(new WindowAdapter()
 	{
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setUndecorated(true);
-		setResizable(false);
-		setIgnoreRepaint(true);
-		targetFPS = 60;  // How many frames are we going to generate per second?
-		nanosPerUpdate = 1000000000 / targetFPS;
-        eventQueue = new ConcurrentLinkedQueue<InputEvent>();
-        
+	    @Override
+	    public void windowClosing(WindowEvent evt)
+	    {
+		formWindowClosing(evt);
+	    }
+	});
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				formWindowClosing(evt);
-			}
-                        
-		});
-                
-                addKeyListener(this);
-                addMouseListener(this);
-	}
-
-	private Screen createInitialScreen()
+	addKeyListener(new KeyAdapter()
 	{
-		return new TankScreen(this);
-	}
-
-	private void initGame()
+	    @Override
+	    public void keyPressed(KeyEvent evt)
+	    {
+		formKeyPressed(evt);
+	    }
+	    
+	});
+	
+	addMouseListener(new MouseAdapter()
 	{
-		currentScreen = createInitialScreen();
+	    @Override
+	    public void mouseReleased(MouseEvent evt)
+	    {
+		formMouseClicked(evt);
+	    }
+	    
+	});
+	
+    }
 
-		if (initFSMode())
-		{
+    private Screen createInitialScreen()
+    {
+	return new TankScreen(this);
+    }
 
-			gameThread = new Thread(this);
-			gameThread.start();
-		}
-		else
-		{
-			System.out.println("initFSMode() returned false; quitting.");
-			dispose();
-		}
+    private void initGame()
+    {
+	currentScreen = createInitialScreen();
+
+	if (initFSMode()) {
+
+	    gameThread = new Thread(this);
+	    gameThread.start();
+	}else{
+	    System.out.println("initFSMode() returned false; quitting.");
+	    dispose();
 	}
+    }
 
-	private boolean initFSMode()
-	{
-		GraphicsEnvironment env =
-			GraphicsEnvironment.getLocalGraphicsEnvironment();
-		dev = env.getDefaultScreenDevice();
-		if (!dev.isFullScreenSupported())
-		{
-			JOptionPane.showMessageDialog(this,
-				"Full-screen mode not supported.",
-				"Error",
-				JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-		dev.setFullScreenWindow(this);
-		mode = dev.getDisplayMode();
-
-		// Initial frame rate guess
-		lastFPS = mode.getRefreshRate();
-		if (lastFPS == 0)
-			lastFPS = 30;  // Just give _some_ nonzero guess
-		if (createBuffering())
-			return true;
-		else
-			return false;
+    private boolean initFSMode()
+    {
+	GraphicsEnvironment env =
+		GraphicsEnvironment.getLocalGraphicsEnvironment();
+	dev = env.getDefaultScreenDevice();
+	if (!dev.isFullScreenSupported()) {
+	    JOptionPane.showMessageDialog(this,
+		    "Full-screen mode not supported.",
+		    "Error",
+		    JOptionPane.WARNING_MESSAGE);
+	    return false;
 	}
+	dev.setFullScreenWindow(this);
+	mode = dev.getDisplayMode();
 
-	private boolean createBuffering()
-	{
-		bstrat = getBufferStrategy();
-		createBufferStrategy(2);
-		// Wait up to 1 second for a buffer strategy to be created
-		long targetNanos = System.nanoTime() + 1000000000;
-		do
-		{
-			bstrat = getBufferStrategy();
-		} while (bstrat == null && targetNanos < System.nanoTime());
-		if (bstrat == null)
-		{
-			return false;
-		}
-		return true;
+	// Initial frame rate guess
+	lastFPS = mode.getRefreshRate();
+	if (lastFPS == 0)
+	    lastFPS = 30;  // Just give _some_ nonzero guess
+	if (createBuffering())
+	    return true;
+	else
+	    return false;
+    }
+    
+    private boolean initWindowedMode()
+    {
+	return false;
+    }
+
+    private boolean createBuffering()
+    {
+	bstrat = getBufferStrategy();
+	createBufferStrategy(2);
+	// Wait up to 1 second for a buffer strategy to be created
+	long targetNanos = System.nanoTime() + 1000000000;
+	do {
+	    bstrat = getBufferStrategy();
+	} while (bstrat == null && targetNanos < System.nanoTime());
+	if (bstrat == null) {
+	    return false;
 	}
+	return true;
+    }
 
 //	private void createHideCursor()
 //	{
@@ -137,157 +154,140 @@ public class AnimatedFrame extends JFrame
 //		hiddenCursor = toolkit.createCustomCursor(cursorImg, new Point(0, 0), "hiddenCursor");
 //		setCursor(hiddenCursor);
 //	}
-
-	@Override
-	public void run()
-	{
-		running = true;
-		long nextFrame = System.nanoTime() + nanosPerUpdate;
-		while (running)
-		{
-			while (nextFrame < System.nanoTime())
-			{
-				updateGame();
-				upsCount++;
-				nextFrame += nanosPerUpdate;
-			}
-			drawFrame();
-			if (fpsTimeGoal == 0)
-			{
-				fpsTimeGoal = System.nanoTime() + 5000000000L;
-			}
-			else if (fpsTimeGoal < System.nanoTime())
-			{
-				lastFPS = fpsCount / 5.0f;
-				lastUPS = upsCount / 5.0f;
-				fpsTimeGoal += 5000000000L;
-				System.out.println("5-second measurement: " +
-						lastFPS + " fps; " + lastUPS + " ups");
-				fpsCount = 0;
-				upsCount = 0;
-			}
-			else
-			{
-				fpsCount++;
-			}
-		}
-	}
-
-	public void updateGame()
-	{
-		currentScreen.update();
-		Screen next = currentScreen.getNextScreen();
-		if (next != null)
-			currentScreen = next;
-	}
-
-	private void drawFrame()
-	{
-		try
-		{
-			Graphics2D gr = (Graphics2D)bstrat.getDrawGraphics();
-			render(gr);
-			gr.dispose();
-			if (!bstrat.contentsLost())
-				bstrat.show();
-			else
-				System.out.println("Contents Lost");
-			// Sync the display on some systems.
-			// (on Linux, this fixes event queue problems)
-			Toolkit.getDefaultToolkit().sync();
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-			running = false; 
-		}
-	}
-
-	public void render(Graphics2D gr)
-	{
-		currentScreen.render(gr);
-	}
-
-	private void formWindowClosing(WindowEvent evt)
-	{
-		running = false;
-		dev.setFullScreenWindow(null);
-	}
-
-	public static void main(String[] args)
-	{
-		AnimatedFrame frame = new AnimatedFrame();
-		frame.initGame();
-	}
     
-    public InputEvent getNextEvent () {
-        return eventQueue.poll();
-    }
-
-
-
     @Override
-    public void mouseClicked(MouseEvent me) {
-        eventQueue.offer(me);
+    public void run()
+    {
+	running = true;
+	long nextFrame = System.nanoTime() + nanosPerUpdate;
+	while (running) {
+	    while (nextFrame < System.nanoTime()) {
+		updateGame();
+		upsCount++;
+		nextFrame += nanosPerUpdate;
+	    }
+	    drawFrame();
+	    if (fpsTimeGoal == 0) {
+		fpsTimeGoal = System.nanoTime() + 5000000000L;
+	    }else if (fpsTimeGoal < System.nanoTime()) {
+		lastFPS = fpsCount / 5.0f;
+		lastUPS = upsCount / 5.0f;
+		fpsTimeGoal += 5000000000L;
+		System.out.println("5-second measurement: "
+			+ lastFPS + " fps; " + lastUPS + " ups");
+		fpsCount = 0;
+		upsCount = 0;
+	    }else{
+		fpsCount++;
+	    }
+	}
     }
 
-    @Override
-    public void mousePressed(MouseEvent me) {
-        /* Do Nothing */
+    public void updateGame()
+    {
+	currentScreen.update();
+	Screen next = currentScreen.getNextScreen();
+	if (next != null)
+	    currentScreen = next;
     }
 
-    @Override
-    public void mouseReleased(MouseEvent me) {
-        /* Do Nothing */        
+    private void drawFrame()
+    {
+	try {
+	    Graphics2D gr = (Graphics2D)bstrat.getDrawGraphics();
+	    render(gr);
+	    gr.dispose();
+	    if (!bstrat.contentsLost())
+		bstrat.show();
+	    else
+		System.out.println("Contents Lost");
+	    // Sync the display on some systems.
+	    // (on Linux, this fixes event queue problems)
+	    Toolkit.getDefaultToolkit().sync();
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	    running = false;
+	}
     }
 
-    @Override
-    public void mouseEntered(MouseEvent me) {
-        /* Do Nothing */
+    public void render(Graphics2D gr)
+    {
+	currentScreen.render(gr);
     }
 
-    @Override
-    public void mouseExited(MouseEvent me) {
-        /* Do Nothing */
-    }
-
-
-        @Override
-    public void keyTyped(KeyEvent ke) {
-            /* Do Nothing */
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        /* Do Nothing */
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-        /* Do Nothing yet */
+    private void formWindowClosing(WindowEvent evt)
+    {
+	running = false;
+	dev.setFullScreenWindow(null);
     }
     
+    private void formKeyPressed(KeyEvent evt)
+    {
+	if (evt.getKeyCode() == KeyEvent.VK_LEFT)
+	    events.offer(Event.Turn_CW);
+	else if (evt.getKeyCode() == KeyEvent.VK_RIGHT)
+	    events.offer(Event.Turn_CCW);
+	else if (evt.getKeyCode() == KeyEvent.VK_UP)
+	    events.offer(Event.Move_Forwards);
+	else if (evt.getKeyCode() == KeyEvent.VK_DOWN)
+	    events.offer(Event.Move_Backwards);
+    }
 
+    private void formMouseClicked(MouseEvent evt)
+    {
+	// If the game is playing.
+	if (currentScreen instanceof TankScreen)
+	{
+	    // Give the current tank the info to shoot.
+	    ((TankScreen)currentScreen).getCurrentTank().setTarget(evt.getX(), evt.getY());
+	    events.offer(Event.Shoot);
+	}
+	// Can expand to allow for menu screen, and other clicks.
+    }
+    
+    public static void main(String[] args)
+    {
+	AnimatedFrame frame = new AnimatedFrame();
+	frame.initGame();
+    }
+
+    public Event getNextEvent()
+    {
+	return events.poll();
+    }
+    
+    public Queue<Event> getQueue()
+    {
+	return events;
+    }
+
+    public enum Event
+    {
+	Shoot,
+	Turn_CW,
+	Turn_CCW,
+	Move_Forwards,
+	Move_Backwards,
+    }
+    
     // Graphics mode info
-	private GraphicsDevice dev;
-	private DisplayMode mode;
-	private BufferStrategy bstrat;
-	private Cursor hiddenCursor;
-	// FPS limiter
-	private int targetFPS;
-	private long nanosPerUpdate;
-	// FPS timing
-	private long fpsTimeGoal;
-	private int fpsCount;
-	private int upsCount;
-	private float lastFPS;
-	private float lastUPS;
-	// Game data
-	private volatile boolean running;
-	private Thread gameThread;
-	private Screen currentScreen;
+    private GraphicsDevice dev;
+    private DisplayMode mode;
+    private BufferStrategy bstrat;
+    private Cursor hiddenCursor;
+    // FPS limiter
+    private int targetFPS;
+    private long nanosPerUpdate;
+    // FPS timing
+    private long fpsTimeGoal;
+    private int fpsCount;
+    private int upsCount;
+    private float lastFPS;
+    private float lastUPS;
+    // Game data
+    private volatile boolean running;
+    private Thread gameThread;
+    private Screen currentScreen;
     //For handing events
-    private volatile Queue<InputEvent> eventQueue;
-
-
+    private Queue<Event> events;
 }
