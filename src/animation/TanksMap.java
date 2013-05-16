@@ -1,5 +1,6 @@
 package animation;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -76,10 +77,10 @@ public class TanksMap {
             while (fileReader.hasNextInt()) {
                 int tankX = fileReader.nextInt(),
                         tankY = fileReader.nextInt();
-                tanks.add(new Tank(tankX, tankY));
+		// Convert from grid coordinates to pixel coordinates.
+                tanks.add(new Tank(tankX * Tank.width, tankY * Tank.height));
             }
-
-
+	    
             map = new Ground[width][height];
 
             /* Literally just skipping lines in the file until I get to 
@@ -126,8 +127,18 @@ public class TanksMap {
 
         }
     }
-
-    public void DrawMap(Graphics2D gr) {
+    
+    public javax.swing.JComponent getComponent()
+    {
+//	javax.swing.JComponent temp = 
+//		new javax.swing.JComponent()
+//		{
+//		    
+//		};
+	return null;
+    }
+    
+    public void DrawMap(Graphics gr) {
         for (int x = 0; x < map.length; ++x) {
             for (int y = 0; y < map[x].length; ++y) {
 
