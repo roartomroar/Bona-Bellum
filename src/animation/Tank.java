@@ -6,8 +6,8 @@ package animation;
  */
 public class Tank {
 
-    private int x, y, hp, dolards;
-    private double fuel;
+    private int hp, dolards;
+    private double fuel, x, y;
 
     public Tank(int x, int y) {
         this.x = x;
