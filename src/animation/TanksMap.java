@@ -64,8 +64,8 @@ public class TanksMap {
             fileReader = new Scanner(file);
 
             if (!fileReader.nextLine().equals("[SIZE]")) {
-                IOException e = new IOException("Invalid file format.");
-                throw e;
+                IOException up = new IOException("Invalid file format.");
+                throw up; //haha
             }
 
             int width = fileReader.nextInt();
@@ -77,7 +77,7 @@ public class TanksMap {
                 int tankX = fileReader.nextInt(),
                         tankY = fileReader.nextInt();
 		// Convert from grid coordinates to pixel coordinates.
-                tanks.add(new Tank(tankX * Tank.width, tankY * Tank.height));
+                tanks.add(new Tank(tankX * Tank.width, tankY * Tank.height, Tank.Color.PURPLE));
             }
 	    
             map = new Ground[width][height];

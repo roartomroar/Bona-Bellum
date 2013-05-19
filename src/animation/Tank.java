@@ -15,11 +15,7 @@ import javax.imageio.ImageIO;
  */
 public class Tank {
 
-    private double x, y;
-    private int hp, dolards;
-    private double fuel;
-
-    public Tank(double x, double y) throws IOException {
+    public Tank(double x, double y, Color color) throws IOException {
         this.x = x;
         this.y = y;
         this.hp = 100;
@@ -31,22 +27,38 @@ public class Tank {
 	this.yTarget = 0;
 	this.speed = 5;
 	this.turnSpeed = Math.toRadians(5);
-        this.
+        this.color = color;
 	
-        image = ImageIO.read(new File("RedTank.png"));
+        image = ImageIO.read(new File("Tank.png"));
         TankRect = new Rectangle((int)x, (int)y, width , height);
-        retPoint = new Point((int)x, (int)y);
+        gun = new Gun(x, y, image, color);
     }
     
     public void Draw(Graphics2D gr) {
         AffineTransform transform = new AffineTransform();
         transform.rotate(Direction, x + width / 2, y + height / 2);
         transform.translate(x, y);
-        gr.drawImage(image, transform, null);
-
-        //        gr.drawImage(image, (int)(x),(int) (y),
-//                (int)(x + width), (int)(y + height),
-//                0 , 0, 50, 50,null);
+        switch (color) {
+            case RED:
+                gr.drawImage(image.getSubimage(0, 0, 50, 50), transform, null);
+                break;
+            case YELLOW:
+                gr.drawImage(image.getSubimage(50, 0, 50, 50), transform, null);
+                break;
+            case PURPLE:
+                gr.drawImage(image.getSubimage(100, 0, 50, 50), transform, null);
+                break;
+            case WHITE:
+                gr.drawImage(image.getSubimage(150, 0, 50, 50), transform, null);
+                break;
+            case GREEN: 
+                gr.drawImage(image.getSubimage(200, 0, 50, 50), transform, null);
+                break;
+            case BLUE:
+                gr.drawImage(image.getSubimage(250, 0, 50, 50), transform, null);
+                break;
+        }
+        gun.Draw(gr);
     }
     
     public void moveForwards()
@@ -74,6 +86,9 @@ public class Tank {
             --fuel;
 
         TankRect.setLocation((int)x, (int)y);
+        gun.setX(x);
+        gun.setY(y);
+
     }
     
     public void moveBackwards()
@@ -100,6 +115,8 @@ public class Tank {
             --fuel;
       
         TankRect.setLocation((int)x, (int)y);
+        gun.setX(x);
+        gun.setY(y);
 
     }
     
@@ -168,11 +185,10 @@ public class Tank {
         return y;
     }
     
-    
+    private Gun gun;
     
     private static TanksMap.Ground[][] map;
     private static BufferedImage image;
-    private AffineTransform gunTransformation;
     private Rectangle TankRect;
     
     public static final int width = 50;
@@ -187,8 +203,21 @@ public class Tank {
     private double xTarget;
     private double yTarget;
     private double Direction;
-    private Point retPoint;
+
+    private double x, y;
+    private int hp, dolards;
+    private double fuel;
+
     
+    private Color color;
     
+    enum Color {
+        RED,
+        YELLOW,
+        PURPLE,
+        WHITE,
+        GREEN,
+        BLUE
+    }
 
 }
