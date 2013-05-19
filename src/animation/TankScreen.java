@@ -25,23 +25,30 @@ public class TankScreen implements Screen {
 	{
 	    switch (event)
 	    {
-		case Shoot:
+		case SHOOT:
 		    CurrentTank.shoot();
 		    break;
-		case Turn_CW:
+		case TURN_CW:
 		    CurrentTank.turnClockWise();
 		    break;
-		case Turn_CCW:
+		case TURN_CCW:
 		    CurrentTank.turnCounterClockWise();
 		    break;
-		case Move_Forwards:
+		case MOVE_FORWARDS:
 		    CurrentTank.moveForwards();
 		    break;
-		case Move_Backwards:
+		case MOVE_BACKWARDS:
 		    CurrentTank.moveBackwards();
 		    break;
+                case ROTATE_GUN_CW:
+                    CurrentTank.RotateGunClockWise();
+                    break;
+                case ROTATE_GUN_CCW:
+                    CurrentTank.RotateGunCounterClockwise();
+                    break;
 	    }
 	    event = theFrame.getNextEvent();
+            
         if (CurrentTank.getFuel() <= 0) {
             int index = tanks.indexOf(CurrentTank);
             //Refill tanks when you're done with them

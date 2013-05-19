@@ -184,6 +184,14 @@ public class Tank {
         return y;
     }
     
+    public void RotateGunClockWise() {
+        gun.turnClockWise();
+    }
+    
+    public void RotateGunCounterClockwise () {
+        gun.turnCounterClockWise();
+    }
+    
     private Gun gun;
     
     private static TanksMap.Ground[][] map;

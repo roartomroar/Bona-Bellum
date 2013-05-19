@@ -59,6 +59,7 @@ public class AnimatedFrame extends JFrame implements Runnable
 		formMouseClicked(evt);
 	    }
 	    
+            
 	});
 	
     }
@@ -127,31 +128,6 @@ public class AnimatedFrame extends JFrame implements Runnable
 	return true;
     }
 
-//	private void createHideCursor()
-//	{
-//		Toolkit toolkit = Toolkit.getDefaultToolkit();
-//
-//		// Get the smallest valid cursor size
-//		Dimension dim = toolkit.getBestCursorSize(1, 1);
-//
-//		// Create a new image of that size with an alpha channel
-//		BufferedImage cursorImg = new BufferedImage(dim.width, dim.height, BufferedImage.TYPE_INT_ARGB);
-//
-//		// Get a Graphics2D object to draw to the image
-//		Graphics2D g2d = cursorImg.createGraphics();
-//
-//		// Set the background 'color' with 0 alpha and clear the image
-//		g2d.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.0f));
-//		g2d.clearRect(0, 0, dim.width, dim.height);
-//
-//		// Dispose the Graphics2D object
-//		g2d.dispose();
-//
-//		// Now create the cursor using that transparent image
-//		hiddenCursor = toolkit.createCustomCursor(cursorImg, new Point(0, 0), "hiddenCursor");
-//		setCursor(hiddenCursor);
-//	}
-    
     @Override
     public void run()
     {
@@ -220,15 +196,19 @@ public class AnimatedFrame extends JFrame implements Runnable
     
     private void formKeyPressed(KeyEvent evt)
     {
-	if (evt.getKeyCode() == KeyEvent.VK_LEFT)
-	    events.offer(Event.Turn_CW);
+	 if (evt.getKeyCode() == KeyEvent.VK_LEFT && evt.isAltDown())
+            events.offer(Event.ROTATE_GUN_CW);
+        else if (evt.getKeyCode() == KeyEvent.VK_RIGHT && evt.isAltDown())
+            events.offer(Event.ROTATE_GUN_CCW);
+        else if (evt.getKeyCode() == KeyEvent.VK_LEFT)
+	    events.offer(Event.TURN_CW);
 	else if (evt.getKeyCode() == KeyEvent.VK_RIGHT)
-	    events.offer(Event.Turn_CCW);
+	    events.offer(Event.TURN_CCW);
 	else if (evt.getKeyCode() == KeyEvent.VK_UP)
-	    events.offer(Event.Move_Forwards);
+	    events.offer(Event.MOVE_FORWARDS);
 	else if (evt.getKeyCode() == KeyEvent.VK_DOWN)
-	    events.offer(Event.Move_Backwards);
-    }
+	    events.offer(Event.MOVE_BACKWARDS);
+            }
 
     private void formMouseClicked(MouseEvent evt)
     {
@@ -237,10 +217,11 @@ public class AnimatedFrame extends JFrame implements Runnable
 	{
 	    // Give the current tank the info to shoot.
 	    ((TankScreen)currentScreen).getCurrentTank().setTarget(evt.getX(), evt.getY());
-	    events.offer(Event.Shoot);
+	    events.offer(Event.SHOOT);
 	}
 	// Can expand to allow for menu screen, and other clicks.
     }
+    
     
     public static void main(String[] args)
     {
@@ -260,11 +241,13 @@ public class AnimatedFrame extends JFrame implements Runnable
 
     public enum Event
     {
-	Shoot,
-	Turn_CW,
-	Turn_CCW,
-	Move_Forwards,
-	Move_Backwards,
+	SHOOT,
+	TURN_CW,
+	TURN_CCW,
+	MOVE_FORWARDS,
+	MOVE_BACKWARDS,
+        ROTATE_GUN_CW,
+        ROTATE_GUN_CCW,
     }
     
     // Graphics mode info
