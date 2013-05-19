@@ -39,9 +39,14 @@ public class Tank {
     }
     
     public void Draw(Graphics2D gr) {
-        gr.drawImage(image, (int)(x),(int) (y),
-                (int)(x + width), (int)(y + height),
-                0 , 0, 50, 50,null);
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(Direction, x + width / 2, y + height / 2);
+        transform.translate(x, y);
+        gr.drawImage(image, transform, null);
+
+        //        gr.drawImage(image, (int)(x),(int) (y),
+//                (int)(x + width), (int)(y + height),
+//                0 , 0, 50, 50,null);
     }
     
     public void moveForwards()
@@ -68,6 +73,7 @@ public class Tank {
         if (CanMoveX || CanMoveY)
             --fuel;
 
+        TankRect.setLocation((int)x, (int)y);
     }
     
     public void moveBackwards()
@@ -79,8 +85,8 @@ public class Tank {
 	double xComp = (speed * Math.cos(Direction));
 	double yComp = (speed * Math.sin(Direction));
 	
-        boolean CanMoveX = x + xComp > 0;
-        boolean CanMoveY = y + yComp > 0;
+        boolean CanMoveX = x + xComp >= 0;
+        boolean CanMoveY = y + yComp >= 0;
         
 	// Collision checking.
 	
@@ -92,6 +98,9 @@ public class Tank {
         
         if (CanMoveX || CanMoveY)
             --fuel;
+      
+        TankRect.setLocation((int)x, (int)y);
+
     }
     
     public void Update() {

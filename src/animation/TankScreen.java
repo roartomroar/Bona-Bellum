@@ -69,7 +69,7 @@ public class TankScreen implements Screen {
         gr.setColor(Color.black);
         gr.drawString("Fuel: " + CurrentTank.getFuel(), (int)CurrentTank.getX(),
                 (int)CurrentTank.getY());
-        }    
+        }
     public Tank getCurrentTank()
     {
 	return CurrentTank;
