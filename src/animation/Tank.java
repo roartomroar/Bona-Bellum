@@ -23,7 +23,7 @@ public class Tank {
         this.x = x;
         this.y = y;
         this.hp = 100;
-        this.fuel = 50;
+        this.fuel = 100;
         this.dolards = 0;
         this.isMoving = false;
         this.isDead = false;
@@ -31,6 +31,7 @@ public class Tank {
 	this.yTarget = 0;
 	this.speed = 5;
 	this.turnSpeed = Math.toRadians(5);
+        this.
 	
         image = ImageIO.read(new File("RedTank.png"));
         TankRect = new Rectangle((int)x, (int)y, width , height);
@@ -53,9 +54,20 @@ public class Tank {
 	double yComp = (speed * Math.sin(Direction));
 	
 	// Collision checking.
+
+        boolean CanMoveX = x + xComp <= map.length * width - width;
+        boolean CanMoveY = y + yComp <= map[0].length * height - height;
+        
+	// Collision checking.
 	
-	x += xComp;
-	y += yComp;
+        if (CanMoveX)
+            x += xComp;
+	if (CanMoveY)
+            y += yComp;
+        
+        if (CanMoveX || CanMoveY)
+            --fuel;
+
     }
     
     public void moveBackwards()
@@ -67,11 +79,19 @@ public class Tank {
 	double xComp = (speed * Math.cos(Direction));
 	double yComp = (speed * Math.sin(Direction));
 	
+        boolean CanMoveX = x + xComp > 0;
+        boolean CanMoveY = y + yComp > 0;
+        
 	// Collision checking.
 	
 	// Subtract, because it's going backwards.
-	x -= xComp;
-	y -= yComp;
+        if (CanMoveX)
+            x -= xComp;
+	if (CanMoveY)
+            y -= yComp;
+        
+        if (CanMoveX || CanMoveY)
+            --fuel;
     }
     
     public void Update() {
@@ -118,6 +138,28 @@ public class Tank {
 	xTarget = x;
 	yTarget = y;
     }
+
+    public static void setMap(TanksMap.Ground[][] map) {
+        Tank.map = map;
+    }
+
+    public double getFuel() {
+        return fuel;
+    }
+    
+    public void refill() {
+        fuel = 100;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+    
+    
     
     private static TanksMap.Ground[][] map;
     private static BufferedImage image;
@@ -127,8 +169,6 @@ public class Tank {
     public static final int width = 50;
     public static final int height = 50;
     
-    private double xDelta;
-    private double yDelta;
     private double speed;
     private double turnSpeed;
     
@@ -139,5 +179,7 @@ public class Tank {
     private double yTarget;
     private double Direction;
     private Point retPoint;
+    
+    
 
 }

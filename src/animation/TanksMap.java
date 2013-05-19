@@ -125,6 +125,8 @@ public class TanksMap {
             System.exit(1);
 
         }
+        
+        Tank.setMap(map);
     }
     
     public javax.swing.JComponent getComponent()
