@@ -85,7 +85,7 @@ public class TanksMap {
             /* Literally just skipping lines in the file until I get to 
              * where I need to be*/
             while (!fileReader.nextLine().equals("[VISUAL]"));
-
+            
             for (int y = 0; y < height; y++) {
 		for (int x = 0; x < width; x++) {
                     if (!fileReader.hasNextInt())
@@ -128,16 +128,7 @@ public class TanksMap {
         
         Tank.setMap(map);
     }
-    
-    public javax.swing.JComponent getComponent()
-    {
-//	javax.swing.JComponent temp = 
-//		new javax.swing.JComponent()
-//		{
-//		    
-//		};
-	return null;
-    }
+  
     
     public void DrawMap(Graphics gr) {
         for (int x = 0; x < map.length; ++x) {
