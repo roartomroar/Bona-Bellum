@@ -1,5 +1,6 @@
 package animation;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -41,6 +42,16 @@ public class TankScreen implements Screen {
 		    break;
 	    }
 	    event = theFrame.getNextEvent();
+        if (CurrentTank.getFuel() <= 0) {
+            int index = tanks.indexOf(CurrentTank);
+            //Refill tanks when you're done with them
+            if (index >= tanks.size() - 1){
+                for (int i = 0; i < tanks.size(); ++i)
+                    (tanks.get(i)).refill();
+                index = -1;
+            }
+            CurrentTank = tanks.get(index + 1);
+        }
 	}
     }
 
@@ -53,9 +64,12 @@ public class TankScreen implements Screen {
     public void render(Graphics2D gr) {
         map.DrawMap(gr);
         for (Tank t : tanks)
-            t.Draw(gr);
-    }
-    
+            t.Draw(gr);     
+        
+        gr.setColor(Color.black);
+        gr.drawString("Fuel: " + CurrentTank.getFuel(), (int)CurrentTank.getX(),
+                (int)CurrentTank.getY());
+        }    
     public Tank getCurrentTank()
     {
 	return CurrentTank;
