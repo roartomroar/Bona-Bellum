@@ -269,8 +269,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.1762514"
-     inkscape:cx="32.254311"
-     inkscape:cy="42.915136"
+     inkscape:cx="8.4953886"
+     inkscape:cy="31.767255"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -288,7 +288,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -310,7 +310,7 @@
      id="layer3"
      inkscape:label="Waves">
     <rect
-       style="fill:#81fbfe;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter6585)"
+       style="fill:#7ee3fc;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter6585)"
        id="rect6381"
        width="50"
        height="50"
