@@ -1,4 +1,4 @@
-package animation;
+package bonnabellum;
 
 import java.awt.Cursor;
 import java.awt.DisplayMode;

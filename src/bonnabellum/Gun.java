@@ -1,6 +1,6 @@
-package animation;
+package bonnabellum;
 
-import static animation.Tank.Color.RED;
+import static bonnabellum.Tank.Color.RED;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;

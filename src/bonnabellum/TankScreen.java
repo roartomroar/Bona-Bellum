@@ -1,4 +1,4 @@
-package animation;
+package bonnabellum;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
